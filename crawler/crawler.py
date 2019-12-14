@@ -9,6 +9,7 @@ def getLinks(url):
     soup = BeautifulSoup(html_page, "html.parser")
 
     #for link in soup.findAll('a', attrs={'href': re.compile("^http://")}):
+    print('saved html: {} {} '.format(url, soup.findAll('a')))
     for link in soup.findAll('a'):
         if link.get('href').startswith('http://') or link.get('href').startswith('https://'):
             print('saved link {} -> {}'.format(url, link.get('href')))

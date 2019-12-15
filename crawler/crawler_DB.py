@@ -5,8 +5,14 @@ from urllib.parse import urljoin
 import pymysql
 
 #Insert records to database
-def insertToDB(childUrl, parentId):
+def insertToDB(url,childUrl):
     try:
+        #get parent node_id
+        cursor.execute("select node_id from category where url = '{}'".format(url))
+        results = cursor.fetchall()
+        for row in results:
+            parentId = row[0]
+        print(url, childUrl, parentId)
         #insert records to DB
         cursor.execute("INSERT INTO category(URL, Parent) VALUES('{}',{})".format(childUrl, parentId))
     except pymysql.Error as exc:
@@ -24,27 +30,14 @@ def getLinks(url):
         if link.get('href').startswith('http://') or link.get('href').startswith('https://'):
             if link.get('href') not in links:
                 childUrl= link.get('href')
-                #get parent node_id
-                cursor.execute("select node_id from category where url = '{}'".format(url))
-                results = cursor.fetchall()
-                for row in results:
-                    parentId = row[0]
                 #Insert records to database
-                insertToDB(childUrl, parentId)
-                #links.append(childUrl)
-        #for relative URL        
+                insertToDB(url, childUrl)
+        #checking for relative URL        
         else:
-            #print('saved link {} -> {}'.format(url, urljoin(url, link.get('href'))))
             if urljoin(url, link.get('href')) not in links:
                 childUrl= urljoin(url, link.get('href'))
-                #get parent node_id
-                cursor.execute("select node_id from category where url = '{}'".format(url))
-                results = cursor.fetchall()
-                for row in results:
-                    parentId = row[0]
                 #Insert records to DB
-                insertToDB(childUrl, parentId)
-                #links.append(childUrl)
+                insertToDB(url, childUrl)
                 
 links = []
 parentId = 0

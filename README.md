@@ -11,4 +11,12 @@ Used Adjacency list model for database. The snapshot of schema is provided below
 
 ## Multithreading
 
-Implemented multithreading which improved the time to get all links in the sites. Crawler with multithreading can be found at https://github.com/venukarnati92/crawler/blob/master/crawler/crawler_multithreading.py
+Implemented multithreading which reduced the time to get all links in the sites. Crawler with multithreading can be found at https://github.com/venukarnati92/crawler/blob/master/crawler/crawler_multithreading.py
+
+## Multiprocessing
+
+Implemented multiprocessing
+
+## How to extend it to distributed?
+
+

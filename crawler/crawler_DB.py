@@ -8,13 +8,12 @@ import pymysql
 def insertToDB(url,childUrl):
     try:
         #get parent node_id
-        cursor.execute("select node_id from category where url = '{}'".format(url))
+        cursor.execute("select node_id from links where url = '{}'".format(url))
         results = cursor.fetchall()
         for row in results:
             parentId = row[0]
-        print(url, childUrl, parentId)
         #insert records to DB
-        cursor.execute("INSERT INTO category(URL, Parent) VALUES('{}',{})".format(childUrl, parentId))
+        cursor.execute("INSERT INTO links(URL, Parent) VALUES('{}',{})".format(childUrl, parentId))
     except pymysql.Error as exc:
         print("error inserting...\n {}".format(exc))
     links.append(childUrl)
@@ -45,19 +44,19 @@ parentId = 0
 links.append("https://storage.googleapis.com/crawler-interview/e0228c0d-e5fe-4af5-87c7-6e41fd82a6b3.html")
 
 #database connection
-db = pymysql.connect("localhost","crawler","crawler@123","TESTDB" )
+db = pymysql.connect("localhost","crawler","crawler@123","crawlerdb" )
 
 # prepare a cursor object
 cursor = db.cursor()
 
 # Drop table if it already exists
-cursor.execute("DROP TABLE IF EXISTS category")
+cursor.execute("DROP TABLE IF EXISTS links")
 
 #Create table
-cursor.execute("CREATE TABLE category(node_id INT AUTO_INCREMENT PRIMARY KEY, URL VARCHAR(2083) NOT NULL, Parent INT DEFAULT NULL)")
+cursor.execute("CREATE TABLE links(node_id INT AUTO_INCREMENT PRIMARY KEY, URL VARCHAR(2083) NOT NULL, Parent INT DEFAULT NULL)")
 
 #insert parent(root URL) record to DB
-cursor.execute("INSERT INTO category(URL) VALUES('{}')".format(links[0]))
+cursor.execute("INSERT INTO links(URL) VALUES('{}')".format(links[0]))
 
 #loop through links across all pages
 for i in links:

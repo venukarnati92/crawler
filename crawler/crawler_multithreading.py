@@ -10,8 +10,8 @@ def getLinks():
     while True:
         url = q.get()
         #get content from url
-        #print('saved html: {} : {} '.format(url, urlopen.urlopen(url).read().decode('utf-8')))
-        print(url)
+        print('saved html: {} : {} '.format(url, urlopen.urlopen(url).read().decode('utf-8')))
+        #print(url)
         html_page = urlopen.urlopen(url)
         soup = BeautifulSoup(html_page, "lxml")
     
@@ -29,7 +29,7 @@ def getLinks():
             #checking for relative URL        
             else:
                 #print reference info and absolute URL
-                #print('saved link {} -> {}'.format(url, urljoin(url, link.get('href'))))
+                print('saved link {} -> {}'.format(url, urljoin(url, link.get('href'))))
                 #avoid cycle calls
                 if urljoin(url, link.get('href')) not in links:
                     with lock:

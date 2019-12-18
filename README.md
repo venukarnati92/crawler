@@ -15,6 +15,10 @@ Implementation can be found at https://github.com/venukarnati92/crawler/blob/mas
 The snapshot of database schema
 <img width="453" alt="Screen Shot 2019-12-16 at 9 20 03 PM" src="https://user-images.githubusercontent.com/22748497/70969943-fb5f7b80-2051-11ea-8076-0dc8f328e30c.png">
 
+Before running crawler_DB.py, make sure of the following points:
+    a.You have created a database crawlerdb
+    b.User ID and password are set to access crawlerdb
+
 ## Multithreading:
 Inorder to implement multithreading, I have used threading module.Code can be found at https://github.com/venukarnati92/crawler/blob/master/crawler/crawler_multithreading.py
 

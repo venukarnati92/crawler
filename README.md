@@ -13,9 +13,11 @@ Data will be stored in the table as follows
 Implementation can be found at https://github.com/venukarnati92/crawler/blob/master/crawler/crawler_DB.py
 
 The snapshot of database schema
+
 <img width="453" alt="Screen Shot 2019-12-16 at 9 20 03 PM" src="https://user-images.githubusercontent.com/22748497/70969943-fb5f7b80-2051-11ea-8076-0dc8f328e30c.png">
 
 Before running crawler_DB.py, make sure of the following points:
+
     a.You have created a database crawlerdb
     b.User ID and password are set to access crawlerdb
 
@@ -29,8 +31,9 @@ https://github.com/venukarnati92/crawler/blob/master/crawler/crawler_multiproces
 
 ## How to extend it to distributed?
 
-For extending the code to be distributed we can use Ray which is an open source library for writing parallel and distributed Python.
-To turn a Python function getLinks() in our code into a “remote function”, we can declare the function with the @ray.remote decorator. Then function invocations via getLinks.remote() will immediately return futures (a future is a reference to the eventual output), and the actual function execution will take place in the background (we refer to this execution as a task).
+To extend code to distributed, we can use Ray, which is an open source library for writing parallel and distributed Python.
+
+To turn python function getLinks() in the code into a “remote function”, declare the function with the @ray.remote decorator. Then the function invocations via getLinks.remote() will immediately return futures (a future is a reference to the eventual output), and the actual function execution will take place in the background (we refer to this execution as a task).
 ```
 @ray.remote
 #Get all the href's from the URL

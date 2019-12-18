@@ -3,7 +3,7 @@ Implemented crawler using Breadth First Search Algorithm. Code can be found at h
 
 # Bonus Questions
 
-## Database
+## Database:
 For dealing with hierarchical data in MySQL I have used Adjacency List Model.
 In the adjacency list model, each item in the table contains a pointer to its parent(as shown in the below image).The topmost URL(RootNode) has a NULL value for its parent.
 Data will be stored in the table as follows
@@ -13,12 +13,13 @@ Implementation can be found at https://github.com/venukarnati92/crawler/blob/mas
 The snapshot of database schema 
 <img width="453" alt="Screen Shot 2019-12-16 at 9 20 03 PM" src="https://user-images.githubusercontent.com/22748497/70969943-fb5f7b80-2051-11ea-8076-0dc8f328e30c.png">
 
-## Multithreading
+## Multithreading:
 Inorder to implement multithreading, I have used threading module.Code can be found at https://github.com/venukarnati92/crawler/blob/master/crawler/crawler_multithreading.py
 
-## Multiprocessing
+## Multiprocessing:
 
-Implemented multiprocessing
+For multiprocessing implementation, I have used multiprocessing module.Code can be found at
+https://github.com/venukarnati92/crawler/blob/master/crawler/crawler_multiprocessing.py
 
 ## How to extend it to distributed?
 

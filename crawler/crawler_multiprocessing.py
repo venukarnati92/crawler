@@ -5,7 +5,7 @@ import urllib.request as urlopen
 from urllib.parse import urljoin
 import queue # imported for using queue.Empty exception
 
-def do_job(tasks_to_accomplish, tasks_that_are_done, shared_list):
+def getLinks(tasks_to_accomplish, tasks_that_are_done, shared_list):
     while True:
         try:
             '''
@@ -34,6 +34,7 @@ def do_job(tasks_to_accomplish, tasks_that_are_done, shared_list):
                     tasks_to_accomplish.put(urljoin(url, link.get('href')))
     return True
 
+#data sharing between the processes
 shared_list = Manager().list()
 shared_list.append("https://storage.googleapis.com/crawler-interview/e0228c0d-e5fe-4af5-87c7-6e41fd82a6b3.html")
 
@@ -48,7 +49,7 @@ def main():
     
     # creating processes
     for w in range(number_of_processes):
-        p = Process(target=do_job, args=(tasks_to_accomplish, tasks_that_are_done, shared_list))
+        p = Process(target=getLinks, args=(tasks_to_accomplish, tasks_that_are_done, shared_list))
         processes.append(p)
         p.start()
         

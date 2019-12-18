@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-#!/usr/bin/env python3
 from bs4 import BeautifulSoup
 import urllib.request as urlopen
 from urllib.parse import urljoin
 import queue
 import threading
-
 
 #Get all the href's from the URL
 def getLinks():
@@ -13,7 +11,6 @@ def getLinks():
         url = q.get()
         #get content from url
         print('saved html: {} : {} '.format(url, urlopen.urlopen(url).read().decode('utf-8')))
-        #print(url)
         html_page = urlopen.urlopen(url)
         soup = BeautifulSoup(html_page, "lxml")
     
@@ -34,6 +31,7 @@ def getLinks():
                 print('saved link {} -> {}'.format(url, urljoin(url, link.get('href'))))
                 #avoid cycle calls
                 if urljoin(url, link.get('href')) not in links:
+                    #acquire lock
                     with lock:
                         links.append(urljoin(url, link.get('href')))
                     q.put(urljoin(url, link.get('href')))
@@ -43,12 +41,13 @@ links = []
 #adding root URL to the list
 links.append("https://storage.googleapis.com/crawler-interview/e0228c0d-e5fe-4af5-87c7-6e41fd82a6b3.html")
 
-
+#defining worker thread count
 num_worker_threads = 3
 q = queue.Queue()
 lock = threading.Lock()
 threads = []
 
+#creating threads
 for i in range(num_worker_threads):
     t = threading.Thread(target=getLinks)
     t.setDaemon(True)
@@ -68,11 +67,6 @@ print('stopping workers!')
 for i in range(num_worker_threads):
     q.put(None)
 
+#stop execution of current program until threads are completed
 for t in threads:
     t.join()
-
-print(len(links) == len(set(links)))
-
-
-
-

@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
+#!/usr/bin/env python3
 from bs4 import BeautifulSoup
 import urllib.request as urlopen
 from urllib.parse import urljoin
 import queue
 import threading
+
 
 #Get all the href's from the URL
 def getLinks():
@@ -49,6 +51,7 @@ threads = []
 
 for i in range(num_worker_threads):
     t = threading.Thread(target=getLinks)
+    t.setDaemon(True)
     t.start()
     threads.append(t)
     
@@ -69,4 +72,7 @@ for t in threads:
     t.join()
 
 print(len(links) == len(set(links)))
+
+
+
 
